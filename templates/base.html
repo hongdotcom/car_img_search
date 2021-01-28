@@ -1,0 +1,69 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Rock+Salt&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <title>
+      {% block title %}Turner's Online Auction Chatbot{% endblock %}
+    </title>
+  </head>
+
+  <body>
+    <div class="bg">
+      <div class="bg-img"></div>
+      <nav class="navbar d-flex">
+        <div>
+          <a class="navbar-brand" href="{% url 'home' %}"
+            ><p class="navbar-logo">TURNER</p>
+          </a>
+        </div>
+        <div>
+          <ul>
+            <li>Find A Car</li>
+            <li>Support</li>
+          </ul>
+        </div>
+      </nav>
+<!-- 
+      <div class="container">
+        <ul class="breadcrumb my-4">
+          {% block breadcrumb %} {% endblock %}
+        </ul> -->
+        {% block content %} {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "eb1fb678-0179-4b27-bce1-422ab11d917e", // The ID of this integration.
+    region: "au-syd", // The region your integration is hosted in.
+    serviceInstanceID: "4c2ce12e-01d3-4a57-8df8-70699b56e987", // The ID of your service instance.
+    onLoad: function (instance) {
+      instance.render();
+    },
+  };
+  setTimeout(function () {
+    const t = document.createElement("script");
+    t.src =
+      "https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+    document.head.appendChild(t);
+  });
+</script>
