@@ -12,9 +12,13 @@ def home(request):
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
         res = detect_labels_local_file('/Users/hongdotcom/Desktop/Sites/django-imgsearch/imgsearch/' + uploaded_file_url)
-        print(res)
-        return render(request, 'home.html', {
-            'uploaded_file_url': uploaded_file_url,'res': res
-        })
+        # print(res)
+        if res != "No Match":
+          page = res+'.html'
+          return render(request, page, {
+              'res': res
+          })
+        if res:
+          return render(request, 'home.html', {'res': res})
   return render(request, 'home.html')
 

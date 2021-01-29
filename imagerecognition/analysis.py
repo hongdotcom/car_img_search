@@ -5,7 +5,7 @@ def detect_labels_local_file(photo):
     #define service used
     client=boto3.client('rekognition')
     #define result varible
-    resp = []
+    resp = ''
 
     #Open image file
     with open(photo, 'rb') as image:
@@ -17,13 +17,14 @@ def detect_labels_local_file(photo):
     #Iterate thru all detected labels
     for label in response['Labels']:
         #debug msg 
-        print (label['Name'] + ' : ' + str(label['Confidence']))
+        # print (label['Name'] + ' : ' + str(label['Confidence']))
         #Since result set is displayed by highest possbility first. We decided to only take the most possible result only. 
         #So if the result is empty, add the highest possble one
         if possible_outcome(label) != 'NOT Matched':
             if not resp:
-                resp.append(label['Name'] + ' : ' + str(label['Confidence']))
-                # print(resp)
+                # resp.append(label['Name'] + ' : ' + str(label['Confidence']))
+                resp = possible_outcome(label)
+                print(resp)
     #if there is no detected label found, then return no match.
     if not resp:
         return "No Match"
@@ -32,15 +33,14 @@ def detect_labels_local_file(photo):
 #Function to detect the label that we want to file. In this case car search 
 def possible_outcome(label):
     switcher={
-        'Truck':'Truck',
-        'Wagon': 'Wagon',
-        'Sedan':'Sedan',
-        'Coupe': 'Coupe',
-        'Hatchback': 'Hatchback',
-        'Van': 'Van',
-        'Suv': 'Suv',
-        'Pickup Truck': 'Pickup Truck',
-        'Convertible':'Convertible',
+        'Truck':'truck',
+        'Wagon': 'wagon',
+        'Sedan':'sedan',
+        'Coupe': 'coupe',
+        'Hatchback': 'hatchback',
+        'Suv': 'suv',
+        'Pickup Truck': 'pickup',
+        'Convertible':'convertible',
 
     }
     #debug messag

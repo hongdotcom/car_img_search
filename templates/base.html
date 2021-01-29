@@ -3,23 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto&family=Rock+Salt&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
     <title>
       {% block title %}Turner's Online Auction Chatbot{% endblock %}
     </title>
@@ -28,26 +38,54 @@
   <body>
     <div class="bg">
       <div class="bg-img"></div>
-      <nav class="navbar d-flex">
-        <div>
-          <a class="navbar-brand" href="{% url 'home' %}"
-            ><p class="navbar-logo">TURNER</p>
-          </a>
-        </div>
-        <div>
-          <ul>
-            <li>Find A Car</li>
-            <li>Support</li>
-          </ul>
+      <div class="container justify-content-end">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="{% url 'home' %}"
+          ><p class="navbar-logo">TURNER</p>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="{% url 'home' %}"
+                >Home <span class="sr-only">(current)</span></a
+              >
+              <a class="nav-item nav-link" href="{% url 'home' %}">Features</a>
+              <a class="nav-item nav-link" href="{% url 'home' %}">Pricing</a>
+            </div>
+          </div>
         </div>
       </nav>
-<!-- 
-      <div class="container">
-        <ul class="breadcrumb my-4">
-          {% block breadcrumb %} {% endblock %}
-        </ul> -->
-        {% block content %} {% endblock %}
+
+      <div class="search-container">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <form method="POST" enctype="multipart/form-data">
+                <div class="form-group my-auto">
+                  {% csrf_token %}
+                  <input type="file" class="btn btn-secondary my-3" name="myfile" />
+                  <button class="btn btn-success" type="submit">Upload</button>
+                </div>
+              </form>
+              {% if res %} {% if res == "No Match" %}
+              <p class="text-info">Your upload file doen't match</p>
+              {% endif %} {% endif %}
+            </div>
+          </div>
+        </div>
       </div>
+      {% block content %} {% endblock %}
     </div>
   </body>
 </html>

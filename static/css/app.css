@@ -34,73 +34,61 @@ ul.breadcrumb li a:hover {
   position: relative;
   z-index: 1;
   opacity: 1;
-  width: 100%;
-  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
 }
 .bg .bg-img {
   background: url("../../static/images/bg1.jpg");
   position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+  background-repeat: no-repeat;
   z-index: -1;
   background-position: center center;
   background-size: cover;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  opacity: 1;
   background-attachment: fixed;
   opacity: 0.7;
 }
 .navbar-logo {
   font-family: "Rock Salt", sans-serif;
   justify-content: start;
-  font-size: 18px;
+  font-size: 22px;
   color: red;
 }
 .navbar-item {
   font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.5);
-}
-nav ul {
-  line-height: 10%;
-  list-style: none;
-  background: rgba(0, 0, 0, 0);
-  overflow: hidden;
-  color: #fff;
-  padding: 0;
-  text-align: right;
-  margin: 0;
-  padding-right: 40px;
-  transition: 1s;
 }
 
-nav ul li {
-  display: inline-block;
-  padding: 16px 40px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 16px;
-}
-
-.menu-icon {
-  line-height: 60px;
-  width: 100%;
-  background: #000;
-  text-align: right;
-  box-sizing: border-box;
-  padding: 15px 24px;
-  cursor: pointer;
-  color: #fff;
-  display: none;
+.search-container {
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 100px;
+  border-radius: 15px !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .card {
-  margin-left: 10%;
-  margin-right: 10%;
-  height: 500px;
+  position: relative;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: auto;
   border-radius: 15px !important;
-  background-color: rgba(255, 255, 255, 0.4) !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  -moz-box-shadow: 3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 3px 3px 5px 6px #ccc;
+  -moz-box-shadow: inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow: inset 0 0 10px #000000;
+}
+.card-img-top {
+  border-radius: 15px !important;
+}
+.img-text {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
 }
