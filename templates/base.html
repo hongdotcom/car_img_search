@@ -72,15 +72,26 @@
           <div class="row">
             <div class="col">
               <form method="POST" enctype="multipart/form-data">
-                <div class="form-group my-auto">
+                <div class="form-group">
                   {% csrf_token %}
                   <input type="file" class="btn btn-secondary my-3" name="myfile" />
                   <button class="btn btn-success" type="submit">Upload</button>
                 </div>
               </form>
-              {% if res %} {% if res == "No Match" %}
-              <p class="text-info">Your upload file doen't match</p>
-              {% endif %} {% endif %}
+              {% if res %} 
+              {% if res == "No Match" %}
+              <p class="text-primary">Your upload file doen't match</p>
+            
+              {% elif res == "Too Big" %}
+              <p class="text-danger">Your file size is too big. Please keep it below 5MB!</p>
+           
+              {% elif res == "Unknown" %}
+              <p class="text-danger">There is some issue with your file. Please try again</p>
+            
+              {% else %}
+                <p class="text-dark">Your upload picture is s {{res}}</p>
+              {% endif %}
+              {% endif %}
             </div>
           </div>
         </div>
