@@ -30,6 +30,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+  
     <title>
       {% block title %}Turner's Online Auction Chatbot{% endblock %}
     </title>
@@ -70,18 +71,22 @@
       <div class="search-container">
         <div class="container">
           <div class="row">
-            <div class="col">
-              <form method="POST" enctype="multipart/form-data">
+            <div class="col-3 my-2">
+              <form method="POST" id="myForm" enctype="multipart/form-data">
                 <div class="form-group">
-                  {% csrf_token %}
-                  <input type="file" class="btn btn-secondary my-3" name="myfile" />
-                  <button class="btn btn-success" type="submit">Upload</button>
+                  {% csrf_token %}   
+                  <div class="drop-zone">
+                    <span class="drop-zone__prompt">Drop or Click</span>
+                    <input type="file" name="myfile" class="drop-zone__input">
+                  </div>
                 </div>
               </form>
+            </div>
+            <div class="col-9 my-4 justify-content-start align-items-center">
               {% if res %} 
               {% if res == "No Match" %}
               <p class="text-primary">Your upload file doen't match</p>
-            
+              <a href="#">{{uploaded_file_url}}</a>
               {% elif res == "Too Big" %}
               <p class="text-danger">Your file size is too big. Please keep it below 5MB!</p>
            
@@ -89,7 +94,8 @@
               <p class="text-danger">There is some issue with your file. Please try again</p>
             
               {% else %}
-                <p class="text-dark">Your upload picture is s {{res}}</p>
+                <p class="text-dark">Your upload picture is a {{res}}</p>
+                <a href="../..{{uploaded_file_url}}" target="_blank">Your Uploaded File is Here</a>
               {% endif %}
               {% endif %}
             </div>
@@ -115,4 +121,86 @@
       "https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
     document.head.appendChild(t);
   });
+</script>
+<script>
+  document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+  const dropZoneElement = inputElement.closest(".drop-zone");
+
+  dropZoneElement.addEventListener("click", (e) => {
+    inputElement.click();
+
+  });
+
+  inputElement.addEventListener("change", (e) => {
+    if (inputElement.files.length) {
+      updateThumbnail(dropZoneElement, inputElement.files[0]);
+      document.forms["myForm"].submit();
+    }
+    if (inputElement.files.length) {
+      inputElement.files = e.dataTransfer.files;
+      // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+      document.forms["myForm"].submit();
+    }
+  });
+
+  dropZoneElement.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZoneElement.classList.add("drop-zone--over");
+  });
+
+  ["dragleave", "dragend"].forEach((type) => {
+    dropZoneElement.addEventListener(type, (e) => {
+      dropZoneElement.classList.remove("drop-zone--over");
+    });
+  });
+
+  dropZoneElement.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    if (e.dataTransfer.files.length) {
+      inputElement.files = e.dataTransfer.files;
+      // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+      document.forms["myForm"].submit();
+    }
+
+    dropZoneElement.classList.remove("drop-zone--over");
+  });
+});
+
+/**
+ * Updates the thumbnail on a drop zone element.
+ *
+ * @param {HTMLElement} dropZoneElement
+ * @param {File} file
+ */
+function updateThumbnail(dropZoneElement, file) {
+  let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+  // First time - remove the prompt
+  if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+    dropZoneElement.querySelector(".drop-zone__prompt").remove();
+  }
+
+  // First time - there is no thumbnail element, so lets create it
+  if (!thumbnailElement) {
+    thumbnailElement = document.createElement("div");
+    thumbnailElement.classList.add("drop-zone__thumb");
+    dropZoneElement.appendChild(thumbnailElement);
+  }
+
+  thumbnailElement.dataset.label = file.name;
+
+  // Show thumbnail for image files
+  if (file.type.startsWith("image/")) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+    };
+  } else {
+    thumbnailElement.style.backgroundImage = null;
+  }
+}
+
 </script>

@@ -9,10 +9,11 @@ def home(request):
   try:
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
+        # print(myfile)
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         filesize = fs.size(filename)
-        print(filesize)
+        # print(filesize)
         if filesize > 5000000:
           res = "Too Big"
           return render(request, 'home.html', {'res': res})
@@ -22,10 +23,11 @@ def home(request):
         if res != "No Match":
           page = res+'.html'
           return render(request, page, {
-              'res': res
+              'res': res,
+              'uploaded_file_url': uploaded_file_url,
           })
         if res:
-          return render(request, 'home.html', {'res': res})
+          return render(request, 'home.html', {'res': res, 'uploaded_file_url': uploaded_file_url,})
   except: 
     res = "Unknown"
     return render(request, 'home.html', {'res': res})
