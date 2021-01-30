@@ -22,9 +22,10 @@ def detect_labels_local_file(photo):
         #So if the result is empty, add the highest possble one
         if possible_outcome(label) != 'NOT Matched':
             if not resp:
-                # resp.append(label['Name'] + ' : ' + str(label['Confidence']))
+               
                 resp = possible_outcome(label)
-                print(resp)
+                # print(resp)
+                
     #if there is no detected label found, then return no match.
     if not resp:
         return "No Match"
