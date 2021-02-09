@@ -1,0 +1,14 @@
+name: test
+
+on: [push]
+
+jobs:
+  build:
+    run-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        users: actions/checkout@v2
+      - name: print greeting
+        run: |
+          eacho hello there!
