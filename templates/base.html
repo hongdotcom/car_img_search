@@ -61,8 +61,8 @@
               <a class="nav-item nav-link active" href="{% url 'home' %}"
                 >Home <span class="sr-only">(current)</span></a
               >
-              <a class="nav-item nav-link" href="{% url 'home' %}">Features</a>
-              <a class="nav-item nav-link" href="{% url 'home' %}">Pricing</a>
+              <a class="nav-item nav-link text-primary" href="{% url 'home' %}">Features</a>
+              <a class="nav-item nav-link text-primary" href="{% url 'home' %}">Pricing</a>
             </div>
           </div>
         </div>
@@ -91,10 +91,10 @@
               <p class="text-danger">Your file size is too big. Please keep it below 5MB!</p>
            
               {% elif res == "Unknown" %}
-              <p class="text-danger">There is some issue with your file. Please try again</p>
+              <p class="text-danger">I don't think it's a car. Can you try something else</p>
             
               {% else %}
-                <p class="text-dark">Your picture is a {{res}}. The below is your options.</p>
+                <p class="text-dark">Your picture is a {{res}}. The below is your buying options.</p>
                 <a href="../..{{uploaded_file_url}}" target="_blank">Your Uploaded File is Here</a>
               {% endif %}
               {% endif %}

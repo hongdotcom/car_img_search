@@ -45,6 +45,6 @@ def possible_outcome(label):
 
     }
     #debug messag
-    # print(switcher.get(label['Name'],'NOT Matched'))
+    print(switcher.get(label['Name'],'NOT Matched'))
     return switcher.get(label['Name'],'NOT Matched')
 
